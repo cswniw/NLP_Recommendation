@@ -1,10 +1,12 @@
 # https://github.com/cswniw/recommend_attraction
 
+import requests
 from selenium import webdriver
 import pandas as pd
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 import time
 from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
 
 options = webdriver.ChromeOptions()
 options.add_argument('lang=ko_KR')
@@ -35,44 +37,58 @@ for i in range(1,101) :
 
             print(attraction, area)
 
-            reviews = driver.find_element_by_class_name('mt10 hover-pointer').text
-            reviews_list.append(reviews)
-            print(reviews)
+            # reviews = driver.find_element_by_class_name('mt10 hover-pointer').text
+            # reviews_list.append(reviews)
+            # print(reviews)
+
 
             for k in range(5) :
+                time.sleep(1)
                 driver.find_element_by_class_name('btn-next').send_keys(Keys.ENTER)
-                reviews = driver.find_element_by_id('mt10 hover-pointer').text
-                reviews_list.append(reviews)
-                print(reviews)
                 print(k)
+                for l in range(1,7) :
+                    time.sleep(1)
+                    review_xpath_1 = '//*[@id="reviews"]/div/div/div/div[2]/div[2]/ul/div[{}]/li/div[2]/div[2]/a/p'.format(l)
+                    review_xpath_2 = '//*[@id="reviews"]/div/div/div/div[3]/div[2]/ul/div[{}]/li/div[2]/div[2]/a/p'.format(l)
+
+                    try :
+                        time.sleep(1)
+                        review_1 = driver.find_element_by_xpath(review_xpath_1).text
+                        # review_1 = driver.find_element_by_class_name(a).text
+                        print(review_1)
+
+                    except :
+                        time.sleep(1)
+                        review_2 = driver.find_element_by_xpath(review_xpath_2).text
+                        print(review_2)
+                        print('no more review')
+                # reviews_list.append(reviews)
+                # print(reviews)
+                # print(k)
 
             driver.back()
+
         except :
             print('except')
-            time.sleep(1)
-            driver.find_element_by_xpath(content_title_xpath).click()
-            attraction = driver.find_element_by_xpath(attraction_xpath).text
-            attraction_list.append(attraction)
-            area = driver.find_element_by_xpath(area_xpath).text
-            area_list.append(area)
-            print(attraction, area)
-            driver.back()
+            # time.sleep(1)
+            # driver.find_element_by_xpath(content_title_xpath).click()
+            # attraction = driver.find_element_by_xpath(attraction_xpath).text
+            # attraction_list.append(attraction)
+            # area = driver.find_element_by_xpath(area_xpath).text
+            # area_list.append(area)
+            # print(attraction, area)
+            # driver.back()
 
 #
 # //*[@id="reviews"]/div/div/div/div[3]/div[2]/ul/div[1]/li/div[2]/div[2]/a/p
 # //*[@id="reviews"]/div/div/div/div[3]/div[2]/ul/div[2]/li/div[2]/div[2]/a/p
 # //*[@id="reviews"]/div/div/div/div[3]/div[2]/ul/div[4]/li/div[2]/div[2]/a/p
 # //*[@id="reviews"]/div/div/div/div[3]/div[2]/ul/div[6]/li/div[2]/div[2]/a/p
-#
+
 #
 #
 
 # <p class="mt10 hover-pointer ">명동 대림동 차이나타운 둘 다 유명한 명소..환전하러 명동 나갔다가 장마라서 비가 엄청 내렸지만 비오는 명동도 엄청 운치 있었어요~^^ 이젠 비도 그치고 서울 근교나 휴가 때 갈 명소를 트립 어플 찾는 중이네요ㅎ</p>
-
-
-
-
-
 
 
 
