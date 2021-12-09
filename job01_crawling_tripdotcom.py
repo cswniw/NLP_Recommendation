@@ -9,12 +9,12 @@ options.add_argument('lang=ko_KR')
 options.add_argument('disable_gpu')
 driver = webdriver.Chrome('./chromedriver', options=options)
 
+
 area_list = []
 content_list = []
 reviews_list = []
-
 # 명소 페이지
-for i in range(1, 100):
+for i in range(1, 101):
     url = 'https://kr.trip.com/travel-guide/city-100042/tourist-attractions/{}.html'.format(i)
     driver.get(url)
     for j in range(1, 11):
@@ -53,5 +53,9 @@ for i in range(1, 100):
 
     df_review = pd.DataFrame({'area': area_list, 'content': content_list, 'reviews': reviews_list})
     df_review.drop_duplicates(inplace=True)
-    df_review.to_csv('./crawling_data/page/reviews_{}.csv'.format(i), index=False)
+    df_review.to_csv('./crawling_data/trip/reviews_{}.csv'.format(i), index=False)
+    area_list = []
+    content_list = []
+    reviews_list = []
+
 driver.close()
