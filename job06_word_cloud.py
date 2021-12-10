@@ -15,10 +15,10 @@ mpl.rcParams['axes.unicode_minus'] = False
 rc('font', family=font_name)
 
 
-df = pd.read_csv('./crawling_data/cleaned_review_2015_2021.csv')
+df = pd.read_csv('./crawling_data/cleaned_reviews_trip_naver.csv')
 print(df.head())
 
-words = df[df['titles'] == '조커 (Joker)']['cleaned_sentences']
+words = df[df['content'] == '모래시계 공원(강원도)']['cleaned_sentences']
 # print(type(words))
 # print(words)
 # words = words[0].split()
@@ -37,11 +37,12 @@ plt.imshow(wordcloud_img, interpolation='bilinear')
 plt.axis('off')
 plt.show()
 
+#
+# stopwords = ['영화', '감독', '개봉', '개봉일', '촬영',
+#              '관객', '관람', '주인공', '출연', '배우',
+#              '들이다', '푸다', '리뷰', '네이버']
 
-stopwords = ['영화', '감독', '개봉', '개봉일', '촬영',
-             '관객', '관람', '주인공', '출연', '배우',
-             '들이다', '푸다', '리뷰', '네이버']
-
+exit()
 from PIL import Image
 alice_mask = np.array(Image.open('./bin_mask.jpg'))
 

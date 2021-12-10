@@ -3,7 +3,7 @@ from konlpy.tag import Okt
 import re
 
 
-df = pd.read_csv('./crawling_data/reviews_all.csv')
+df = pd.read_csv('./crawling_data/reviews_trip_naver.csv')
 df.info()
 
 okt = Okt()
@@ -37,4 +37,4 @@ df['cleaned_sentences'] = cleaned_sentences
 print(df.head())
 df = df[['area', 'content', 'cleaned_sentences']]
 df.info()
-df.to_csv('./crawling_data/cleaned_reviews.csv', index=False)
+df.to_csv('./crawling_data/cleaned_reviews_trip_naver.csv', index=False)

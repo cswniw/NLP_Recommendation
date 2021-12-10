@@ -16,7 +16,7 @@ def getRecommendation(cosine_sim) :
     return  recMovieList
 
 
-df_reviews = pd.read_csv('./crawling_data/cleaned_reviews.csv')
+df_reviews = pd.read_csv('./crawling_data/cleaned_reviews_trip_naver.csv')
 Tfidf_matrics = mmread('./models/Tfidf_attraction_review.mtx').tocsr()
 with open('./models/tfidf.pickle', 'rb') as f:
     Tfidf = pickle.load(f)
@@ -40,36 +40,36 @@ with open('./models/tfidf.pickle', 'rb') as f:
 
 ################################################################################################
 # ## 키워드로 검색
-embedding_model = Word2Vec.load('./models/word2VecModel_review.model')
-key_word = '울산'
-sentence = [key_word] * 11   # 토르가 10번 들어있는 리스트
-sim_word = embedding_model.wv.most_similar(key_word, topn=10)  # sim_word에 리스트로 받음.
-
-words = []
-for word, _ in sim_word :   # word는 단어 / _ 는 유사도
-    words.append(word)
-print(words)
-
-for i, word in enumerate(words) :
-    sentence += [word]*(10-i)        # 토르 10번 라그나로크 9번 갤럭시8번
-
-sentence = ' '.join(sentence)
-print(sentence)
-
-sentence_vec = Tfidf.transform([sentence])
-cosine_sim = linear_kernel(sentence_vec, Tfidf_matrics)
-recommendation = getRecommendation(cosine_sim)
-print(recommendation['content'])
-################################################################################################
-
-
-############################ 줄거리나 리뷰로 검색 #################################
-# sentence = '겨울에 여자친구랑 여행가기 좋은곳 1박 2일 1박 2일로 여자친구랑 여행가기 좋은곳이 어디 있을까요? 뚜벅이고 경기도 광주 살고있는데 너무 막 먼곳은 힘들 거 같아요ㅠ 알려주세요!!'
+# embedding_model = Word2Vec.load('./models/word2VecModel_review.model')
+# key_word = '겨울'
+# sentence = [key_word] * 11   # 토르가 10번 들어있는 리스트
+# sim_word = embedding_model.wv.most_similar(key_word, topn=10)  # sim_word에 리스트로 받음.
+#
+# words = []
+# for word, _ in sim_word :   # word는 단어 / _ 는 유사도
+#     words.append(word)
+# print(words)
+#
+# for i, word in enumerate(words) :
+#     sentence += [word]*(10-i)        # 토르 10번 라그나로크 9번 갤럭시8번
+#
+# sentence = ' '.join(sentence)
+# print(sentence)
+#
 # sentence_vec = Tfidf.transform([sentence])
 # cosine_sim = linear_kernel(sentence_vec, Tfidf_matrics)
 # recommendation = getRecommendation(cosine_sim)
 # print(recommendation['content'])
+################################################################################################
 
+
+############################ 줄거리나 리뷰로 검색 #################################
+`# sentence = '겨울에 여자친구랑 여행가기 좋은곳 1박 2일 1박 2일로 여자친구랑 여행가기 좋은곳이 어디 있을까요? 뚜벅이고 경기도 광주 살고있는데 너무 막 먼곳은 힘들 거 같아요ㅠ 알려주세요!!'
+# sentence_vec = Tfidf.transform([sentence])
+# cosine_sim = linear_kernel(sentence_vec, Tfidf_matrics)
+# recommendation = getRecommendation(cosine_sim)
+# print(recommendation['content'])
+`
 
 
 

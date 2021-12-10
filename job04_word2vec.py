@@ -6,7 +6,7 @@ from gensim.models import Word2Vec
 # 형태소들의 묶음(순서도 없는) bow 를 Word2Vec 모델에 준다.
 # 단어의 수 만큼 차원이 생긴다.
 
-review_word = pd.read_csv('./crawling_data/cleaned_reviews.csv')
+review_word = pd.read_csv('./crawling_data/cleaned_reviews_trip_naver.csv')
 review_word.info()
 
 cleaned_token_review = list(review_word['cleaned_sentences'])
